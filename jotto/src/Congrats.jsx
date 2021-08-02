@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const Congrats = ({ success }) => (
-	<div data-test="component-congrats">{
-		success 
+	<div className={success ? "alert alert-success" : ""} data-test="component-congrats">{
+		success
 			? (
 				<span data-test="congrats-message">
 					Congratulation! You guessed the word!
 				</span>
-			) 
+			)
 			: null
 	}</div>
 )

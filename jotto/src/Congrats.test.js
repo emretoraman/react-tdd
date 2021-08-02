@@ -1,6 +1,7 @@
 /* eslint react/forbid-foreign-prop-types: 0 */
 import { expect, test } from '@jest/globals'
 import { shallow } from 'enzyme'
+import React from 'react'
 import { checkProps, findByTestAttr } from './../test/testUtils'
 import Congrats from './Congrats'
 
@@ -30,6 +31,5 @@ test('renders non-empty congrats message when `success` prop is true', () => {
 })
 
 test('does not throw warning with expected props', () => {
-	const expectedProps = { success: false }
-	checkProps(Congrats, expectedProps)
+	checkProps(Congrats, defaultProps)
 })
