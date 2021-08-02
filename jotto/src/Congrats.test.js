@@ -1,4 +1,3 @@
-/* eslint react/forbid-foreign-prop-types: 0 */
 import { expect, test } from '@jest/globals'
 import { shallow } from 'enzyme'
 import React from 'react'
