@@ -14,7 +14,7 @@ const setup = (props = {}) => {
 test('renders without error', () => {
 	const wrapper = setup()
 	const component = findByTestAttr(wrapper, 'component-app')
-	expect(component.length).toBe(1)
+	expect(component).toHaveLength(1)
 })
 
 test('does not throw warning with expected props', () => {
