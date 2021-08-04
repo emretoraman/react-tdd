@@ -1,6 +1,9 @@
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
+import reduxThunk from 'redux-thunk'
 import rootReducer from './reducers/index'
 
-const store = createStore(rootReducer)
+export const middlewares = [reduxThunk]
+
+const store = createStore(rootReducer, { secretWord: 'party' }, applyMiddleware(...middlewares))
 
 export default store

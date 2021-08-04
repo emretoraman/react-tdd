@@ -1,11 +1,12 @@
 /* eslint react/forbid-foreign-prop-types: 0 */
 import { expect } from '@jest/globals'
 import checkPropTypes from 'check-prop-types'
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
+import { middlewares } from '../src/configureStore'
 import rootReducer from '../src/reducers/index'
 
 export const storeFactory = (initialState) => {
-	return createStore(rootReducer, initialState)
+	return createStore(rootReducer, initialState, applyMiddleware(...middlewares))
 }
 
 export const findByTestAttr = (wrapper, val) => {

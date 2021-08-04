@@ -6,7 +6,7 @@ const GuessedWords = ({ guessedWords }) => (
 		guessedWords.length === 0
 			? (
 				<span data-test="guess-instructions">
-					Try to guess the secret word!
+					Try to guess the secret 5 letter word!
 				</span>
 			)
 			: (

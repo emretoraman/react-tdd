@@ -2,22 +2,13 @@ import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globa
 import { mount } from 'enzyme'
 import React from 'react'
 import { Provider } from 'react-redux'
-import { checkProps, findByTestAttr, storeFactory } from '../test/testUtils'
+import { findByTestAttr, storeFactory } from '../test/testUtils'
 import Input from './Input'
 
-const defaultProps = {
-	secretWord: 'party'
-}
-
-const setup = (initialState = {}, props = {}) => {
+const setup = (initialState = {}) => {
 	const store = storeFactory(initialState)
-	const setupProps = { ...defaultProps, ...props }
-	return mount(<Provider store={store}><Input {...setupProps} /></Provider>)
+	return mount(<Provider store={store}><Input /></Provider>)
 }
-
-test('does not throw warning with expected props', () => {
-	checkProps(Input, defaultProps)
-})
 
 describe('render', () => {
 	describe('success is true', () => {

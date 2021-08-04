@@ -1,14 +1,16 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { guessWord } from './actions'
 
-const Input = ({ secretWord }) => {
+const Input = () => {
+	const dispatch = useDispatch()
+
 	const [currentGuess, setCurrentGuess] = React.useState('')
 	const success = useSelector(state => state.success)
 
-	const handleClick = () => {
-		//TODO: Update guessedWords global state
-		//TODO: Check against secretWord and optionally update success global state
+	const handleClick = (event) => {
+		event.preventDefault()
+		dispatch(guessWord(currentGuess))
 		setCurrentGuess('')
 	}
 
@@ -37,10 +39,6 @@ const Input = ({ secretWord }) => {
 				)
 		}</div>
 	)
-}
-
-Input.propTypes = {
-	secretWord: PropTypes.string.isRequired
 }
 
 export default Input

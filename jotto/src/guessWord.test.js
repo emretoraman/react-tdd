@@ -1,11 +1,15 @@
 import { beforeEach, describe, expect, test } from '@jest/globals'
 import { mount } from 'enzyme'
 import React from 'react'
-import { findByTestAttr } from '../test/testUtils'
+import { Provider } from 'react-redux'
+import { findByTestAttr, storeFactory } from '../test/testUtils'
 import App from './App'
 
-const setup = (state = {}) => {
-	const wrapper = mount(<App />)
+jest.mock('./actions/index')
+
+const setup = (initialState = {}) => {
+	const store = storeFactory(initialState)
+	const wrapper = mount(<Provider store={store}><App /></Provider>)
 
 	const inputBox = findByTestAttr(wrapper, 'input-box')
 	const mockEvent = { target: { value: 'train' } }
@@ -17,7 +21,7 @@ const setup = (state = {}) => {
 	return wrapper
 }
 
-describe.skip('no words guessed', () => {
+describe('no words guessed', () => {
 	let wrapper
 
 	beforeEach(() => {
@@ -34,7 +38,7 @@ describe.skip('no words guessed', () => {
 	})
 })
 
-describe.skip('some words guessed', () => {
+describe('some words guessed', () => {
 	let wrapper
 
 	beforeEach(() => {
@@ -53,7 +57,7 @@ describe.skip('some words guessed', () => {
 	})
 })
 
-describe.skip('secret word guessed', () => {
+describe('secret word guessed', () => {
 	let wrapper
 
 	beforeEach(() => {
