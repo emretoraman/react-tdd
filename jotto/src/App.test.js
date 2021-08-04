@@ -1,14 +1,15 @@
-import { expect, test } from '@jest/globals'
-import { shallow } from 'enzyme'
+/* eslint-disable import/first */
+import { beforeEach, describe, expect, jest, test } from '@jest/globals'
+import { mount } from 'enzyme'
 import React from 'react'
-import { checkProps, findByTestAttr } from '../test/testUtils'
+import { findByTestAttr } from '../test/testUtils'
 import App from './App'
 
-const defaultProps = {}
+jest.mock('./actions/index')
+const { getSecretWord: mockGetSecretWord } = require('./actions/index')
 
-const setup = (props = {}) => {
-	const setupProps = { ...defaultProps, ...props }
-	return shallow(<App {...setupProps} />)
+const setup = () => {
+	return mount(<App />)
 }
 
 test('renders without error', () => {
@@ -17,6 +18,22 @@ test('renders without error', () => {
 	expect(component).toHaveLength(1)
 })
 
-test('does not throw warning with expected props', () => {
-	checkProps(App, defaultProps)
+describe('get secret word', () => {
+	beforeEach(() => {
+		mockGetSecretWord.mockClear()
+	})
+
+	test('getSecretWord runs on App mount', () => {
+		setup()
+		expect(mockGetSecretWord).toHaveBeenCalledTimes(1)
+	})
+
+	test('getSecretWord does not run on App update', () => {
+		const wrapper = setup()
+		mockGetSecretWord.mockClear()
+
+		wrapper.setProps()
+
+		expect(mockGetSecretWord).toHaveBeenCalledTimes(0)
+	})
 })
