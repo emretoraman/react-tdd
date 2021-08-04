@@ -1,6 +1,13 @@
 import { afterEach, beforeEach, describe, expect, test } from '@jest/globals'
 import moxios from 'moxios'
-import { getSecretWord } from './index'
+import { actionTypes, correctGuess, getSecretWord } from './index'
+
+describe('correctGuess', () => {
+	test('returns an action with type `CORRECT_GUESS`', () => {
+		const action = correctGuess()
+		expect(action).toStrictEqual({ type: actionTypes.CORRECT_GUESS })
+	})
+})
 
 describe('getSecretWord', () => {
 	beforeEach(() => {

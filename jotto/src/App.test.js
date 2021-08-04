@@ -2,14 +2,17 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { mount } from 'enzyme'
 import React from 'react'
+import { Provider } from 'react-redux'
 import { findByTestAttr } from '../test/testUtils'
+import { storeFactory } from './../test/testUtils'
 import App from './App'
 
 jest.mock('./actions/index')
 const { getSecretWord: mockGetSecretWord } = require('./actions/index')
 
 const setup = () => {
-	return mount(<App />)
+	const store = storeFactory()
+	return mount(<Provider store={store}><App /></Provider>)
 }
 
 test('renders without error', () => {

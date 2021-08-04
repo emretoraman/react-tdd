@@ -1,17 +1,18 @@
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
 import React from 'react'
-import { checkProps, findByTestAttr } from '../test/testUtils'
+import { Provider } from 'react-redux'
+import { checkProps, findByTestAttr, storeFactory } from '../test/testUtils'
 import Input from './Input'
 
 const defaultProps = {
-	success: false,
 	secretWord: 'party'
 }
 
-const setup = (props = {}) => {
+const setup = (initialState = {}, props = {}) => {
+	const store = storeFactory(initialState)
 	const setupProps = { ...defaultProps, ...props }
-	return shallow(<Input {...setupProps} />)
+	return mount(<Provider store={store}><Input {...setupProps} /></Provider>)
 }
 
 test('does not throw warning with expected props', () => {
@@ -73,7 +74,7 @@ describe('state controlled input field', () => {
 		mockSetCurrentGuess.mockClear()
 		originalUseState = React.useState
 		React.useState = (initialState) => [initialState, mockSetCurrentGuess]
-		wrapper = setup()
+		wrapper = setup({ success: false })
 	})
 
 	afterEach(() => {
